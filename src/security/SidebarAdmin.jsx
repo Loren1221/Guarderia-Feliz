@@ -356,7 +356,7 @@ const SidebarAdmin = () => {
 </a>
 {isDropdownOpen && (
   <ul className="text-gray-700 space-y-2">
-    <NavLink to="/reportes">
+    <NavLink to="/reportEst">
       <li onClick={() => handleTabSelect("reportesUsuarios")}>
         <a
           className={`
@@ -382,7 +382,7 @@ const SidebarAdmin = () => {
               `}
             >
               <a href="#" className="pl-3">
-                R_Usuarios
+                R_Padres
               </a>
             </span>
           </span>

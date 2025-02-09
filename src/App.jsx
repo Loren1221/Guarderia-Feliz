@@ -7,11 +7,14 @@ import NotFound from "./page/NotFound";
 import Navbar from "./security/Navbar";
 import { UserProvider } from "./hooks/useContext";
 import PrivateRoute from "./security/PrivateRoute";
-import RegisterPage from "./admin/RegisterPage";
+import RegisterPage from "./components/RegisterPage"
 import AdminPage from "./admin/AdminPage";
 import Dashboard from "./admin/Dashboard";
-import RegistrarEstudiante from "./admin/RegistrarEstudiante";
-
+import RegistrarEstudiante from "./components/RegistrarEstudiante";
+import RegistrarEmpleado from "./components/RegistrarEmpleado";
+import AdminEvents  from "./components/AdminEvents";
+import ReportsUser from "./reports/ReportsUser";
+import ReportesEstu from "./reports/ReportesEstu"; 
 function App() {
   return (
     <UserProvider>
@@ -40,7 +43,12 @@ function App() {
           }
         />
       
-
+      <Route
+          path="/empleado"
+          element={
+            <PrivateRoute element={<RegistrarEmpleado />} role="administrador" />
+          }
+        />
 <Route
           path="/estu"
           element={
@@ -48,7 +56,25 @@ function App() {
           }
         />
         
-       
+        
+<Route
+          path="/event"
+          element={
+            <PrivateRoute element={<AdminEvents />} role="administrador" />
+          }
+        />
+
+<Route
+          path="/reportes"
+          element={
+            <PrivateRoute element={<ReportsUser />} role="administrador" />
+          }
+        />
+
+<Route
+          path="/reportEst"    
+          element={<PrivateRoute element={<ReportesEstu />} role="administrador" />}
+        />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </UserProvider>
