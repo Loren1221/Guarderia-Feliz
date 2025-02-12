@@ -1,7 +1,7 @@
 
 import React, { useState, useEffect } from "react";
-import { supabase } from "../services/supabase/Client";
-import Layout from "../security/Layout";
+import { supabase } from "../../supabase/Client";
+import Layout from "../../components/Layout";
 
 const RegistrarEmpleado = () => {
   // Estado para los datos del empleado

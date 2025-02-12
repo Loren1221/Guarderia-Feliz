@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import { supabase } from "../services/supabase/Client";
+import { supabase } from "../supabase/Client";
 import { useState } from "react";
 import bcrypt from "bcryptjs";
 

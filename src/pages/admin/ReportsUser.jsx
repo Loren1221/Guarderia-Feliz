@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
-
+import UserReport from "../../reports/UserReport";
 import { PDFDownloadLink } from "@react-pdf/renderer";
-import useReports from "../hooks/useReports";
-import Layout from "../security/Layout";
+import useReports from "../../hooks/useReports";
+import Layout from "../../components/Layout";
 
 export default function ReportsUser() {
   const { getDataReportUser, data } = useReports();

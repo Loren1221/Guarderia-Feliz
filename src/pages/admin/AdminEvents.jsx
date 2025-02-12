@@ -3,17 +3,16 @@
 
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { supabase } from "../services/supabase/Client";
+import { supabase } from "../../supabase/Client";
 import {
   PencilIcon,
   TrashIcon,
   PlusIcon,
   XMarkIcon,
-  
 } from "@heroicons/react/24/outline";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import Layout from "../security/Layout";
+import Layout from "../../components/Layout";
 
 const AdminEvents = () => {
   const navigate = useNavigate();

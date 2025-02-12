@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
-import supabase  from "../services/supabase/Client";
+import { supabase } from "../supabase/Client";
 import { useUser } from "./useContext";
 
 const useAuthCheck = () => {

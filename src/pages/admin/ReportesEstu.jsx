@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { supabase } from "../services/supabase/Client";
+import { supabase } from "../../supabase/Client";
 import { jsPDF } from "jspdf";
-import Layout from "../security/Layout";
-
+import Layout from "../../components/Layout";
 
 const ReportesEstu = () => {
   const [estudiantes, setEstudiantes] = useState([]);

@@ -1,5 +1,5 @@
 {
-  "name": "guarderiafeliz",
+  "name": "guarderia",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -11,17 +11,18 @@
   },
   "dependencies": {
     "@heroicons/react": "^2.2.0",
-    "@react-pdf/renderer": "^4.2.1",
-    "@supabase/supabase-js": "^2.48.1",
+    "@react-pdf/renderer": "^4.1.6",
+    "@supabase/supabase-js": "^2.47.12",
     "bcryptjs": "^2.4.3",
-    "framer-motion": "^12.0.6",
+    "dayjs": "^1.11.13",
+    "framer-motion": "^11.17.0",
     "js-cookie": "^3.0.5",
     "jspdf": "^2.5.2",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-icons": "^5.4.0",
-    "react-router-dom": "^7.1.5",
-    "react-toastify": "^11.0.3"
+    "react-router-dom": "^7.1.1",
+    "react-toastify": "^11.0.2"
   },
   "devDependencies": {
     "@eslint/js": "^9.17.0",
@@ -34,7 +35,7 @@
     "eslint-plugin-react-hooks": "^5.0.0",
     "eslint-plugin-react-refresh": "^0.4.16",
     "globals": "^15.14.0",
-    "postcss": "^8.5.1",
+    "postcss": "^8.4.49",
     "tailwindcss": "^3.4.17",
     "vite": "^6.0.5"
   }

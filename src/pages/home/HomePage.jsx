@@ -1,9 +1,10 @@
 
 
 
-import LogoHo from "../images/LogoHome.png"; // Si estás utilizando una imagen
+import LogoHo from "../../images/LogoHome.png"; // Si estás utilizando una imagen
 import { NavLink } from "react-router-dom";
 import Footer from "../home/Footer";
+
 import { motion } from "framer-motion";
 import { FaUser, FaHeart, FaStar, FaPhone } from "react-icons/fa"; // Íconos actualizados
 
@@ -62,7 +63,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Filosofía Section */}
+   
       <section className="bg-gray-50 py-16">
         <motion.div className="container mx-auto text-center" initial={{ opacity: 0, y: 50 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1 }}>
           <h2 className="text-5xl font-extrabold text-gray-800 mb-10 font-cursive">Nuestra Filosofía</h2>

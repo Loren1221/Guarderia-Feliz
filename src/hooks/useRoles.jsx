@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
-import { supabase } from "../services/supabase/Client";
+import { supabase } from "../supabase/Client";
+
 export const useRoles = () => {
   const [roles, setRoles] = useState([]);
   const [loading, setLoading] = useState(true);

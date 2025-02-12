@@ -1,8 +1,10 @@
 
+
 import { useState } from "react";
 import { NavLink } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
+import LogoHo from "../images/Logo.png"; 
 
 const SidebarUser = () => {
   const [sidebarToggled, setSidebarToggled] = useState(false);
@@ -40,15 +42,23 @@ const SidebarUser = () => {
 
   return (
     <>
-    
       <aside
-  className={`
-    fixed inset-0 z-50 w-8/12 max-w-[14rem] md:w-48 transition-all rounded-br-xl bg-white shadow-lg shadow-gray-800/60 flex flex-col justify-between px-4 lg:transition-[width] ease-linear
-    ${sidebarToggled ? "" : "-translate-x-full lg:-translate-x-0"}
-    ${sidebarResized ? "lg:w-20" : ""} h-screen
-  `}
->
+        className={`
+          fixed inset-0 z-50 w-8/12 max-w-[14rem] md:w-48 transition-all rounded-br-xl bg-white shadow-lg shadow-gray-800/60 flex flex-col justify-between px-4 lg:transition-[width] ease-linear
+          ${sidebarToggled ? "" : "-translate-x-full lg:-translate-x-0"}
+          ${sidebarResized ? "lg:w-20" : ""} h-screen
+        `}
+      >
         <div className="min-h-max py-3">
+          {/* Logo del menú */}
+          <div className="flex justify-center items-center mb-4">
+            <img
+              src={LogoHo}
+              alt="Logo"
+              className={`w-12 h-12 ${sidebarResized ? "lg:w-8 lg:h-8" : ""}`}
+            />
+          </div>
+
           <div className="min-h-max py-2 hidden lg:flex justify-end bg-transparent">
             <button
               onClick={() => {

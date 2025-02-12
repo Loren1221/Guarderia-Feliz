@@ -1,7 +1,7 @@
 
 
 import { useNavigate } from "react-router-dom";
-import { supabase } from "../services/supabase/Client";
+import { supabase } from "../supabase/Client";
 import Cookies from "js-cookie";
 import { useUser } from "./useContext";
 import bcrypt from "bcryptjs";

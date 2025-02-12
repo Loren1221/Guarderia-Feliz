@@ -1,7 +1,6 @@
-import Layout from "../security/Layout";
+import Layout from "../../components/Layout";
 import Dashboard from "./Dashboard";
-import { useUser } from "../hooks/useContext";
-
+import { useUser } from "../../hooks/useContext";
 export default function AdminPage() {
   const { user } = useUser();
   return (
