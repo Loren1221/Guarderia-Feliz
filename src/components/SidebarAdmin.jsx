@@ -86,7 +86,7 @@ const SidebarAdmin = () => {
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 20 20"
                 fill="currentColor"
-                className="w-5 h-5"
+                className="w-8 h-8"
               >
                 <path
                   fillRule="evenodd"
@@ -98,8 +98,8 @@ const SidebarAdmin = () => {
           </div>
         </div>
 
-        <nav className="h-full pt-4">
-          <ul className="text-gray-700 space-y-1">
+        <nav className="h-full pt-0">
+          <ul className="text-gray-700 space-y-0">
             <NavLink to="/admin">
               <li onClick={() => handleTabSelect("inicio")}>
                 <a
@@ -112,7 +112,7 @@ const SidebarAdmin = () => {
                       xmlns="http://www.w3.org/2000/svg"
                       viewBox="0 0 24 24"
                       fill="currentColor"
-                      className="size-6"
+                      className="size-5"
                     >
                       <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z" />
                     </svg>
@@ -140,7 +140,7 @@ const SidebarAdmin = () => {
                       xmlns="http://www.w3.org/2000/svg"
                       viewBox="0 0 24 24"
                       fill="currentColor"
-                      className="size-6"
+                      className="size-5"
                     >
                       <path d="M16 11c2.2 0 4-1.8 4-4s-1.8-4-4-4-4 1.8-4 4 1.8 4 4 4zm-8 0c2.2 0 4-1.8 4-4S10.2 3 8 3 4 4.8 4 7s1.8 4 4 4zm0 2c-2.7 0-8 1.3-8 4v3h16v-3c0-2.7-5.3-4-8-4zm8 0c-.3 0-.7 0-1 .1 1.2.8 2 1.8 2 3v3h6v-3c0-2.7-5.3-4-8-4z" />
                     </svg>
@@ -149,7 +149,7 @@ const SidebarAdmin = () => {
                         sidebarResized ? "lg:invisible" : ""
                       }`}
                     >
-                      <a href="" className="pl-3">Usuarios</a>
+                      <a href="" className="pl-3">Padres</a>
                     </span>
                   </span>
                 </a>
@@ -168,7 +168,7 @@ const SidebarAdmin = () => {
                       xmlns="http://www.w3.org/2000/svg"
                       viewBox="0 0 24 24"
                       fill="currentColor"
-                      className="size-6"
+                      className="size-5"
                     >
                       <path d="M12 12c2.7 0 5-2.3 5-5s-2.3-5-5-5-5 2.3-5 5 2.3 5 5 5zm0 2c-2.7 0-8 1.3-8 4v3h16v-3c0-2.7-5.3-4-8-4z" />
                     </svg>
@@ -196,7 +196,7 @@ const SidebarAdmin = () => {
                       xmlns="http://www.w3.org/2000/svg"
                       viewBox="0 0 24 24"
                       fill="currentColor"
-                      className="size-6"
+                      className="size-5"
                     >
                       <path d="M12 2L1.5 7l1.11 1.64 9.39-4.78 9.39 4.78L22.5 7 12 2zm0 4.7L3.74 9 12 13.3 20.26 9 12 6.7zm-8.5 9.2h17v2H3.5v-2z" />
                     </svg>
@@ -224,7 +224,7 @@ const SidebarAdmin = () => {
                       xmlns="http://www.w3.org/2000/svg"
                       viewBox="0 0 24 24"
                       fill="currentColor"
-                      className="size-6"
+                      className="size-5"
                     >
                       <path d="M21 3H3a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h18a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2zM9 14H6v-2h3v2zm5 0h-4v-2h4v2zm6 0h-3v-2h3v2z" />
                     </svg>
@@ -252,7 +252,7 @@ const SidebarAdmin = () => {
                       xmlns="http://www.w3.org/2000/svg"
                       viewBox="0 0 24 24"
                       fill="currentColor"
-                      className="size-6"
+                      className="size-5"
                     >
                       <path d="M6 2h12a2 2 0 0 1 2 2v16a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2zm4 12v-2h4v2H10zM6 6v2h12V6H6z" />
                     </svg>
@@ -280,7 +280,7 @@ const SidebarAdmin = () => {
                       xmlns="http://www.w3.org/2000/svg"
                       viewBox="0 0 24 24"
                       fill="currentColor"
-                      className="size-6"
+                      className="size-5"
                     >
                       <path d="M12 1.5a9.5 9.5 0 1 0 9.5 9.5A9.5 9.5 0 0 0 12 1.5zM11 6h2v6h-2zm1 12.5a1.5 1.5 0 1 1 1.5-1.5 1.5 1.5 0 0 1-1.5 1.5z" />
                     </svg>
@@ -305,7 +305,7 @@ const SidebarAdmin = () => {
                   xmlns="http://www.w3.org/2000/svg"
                   viewBox="0 0 24 24"
                   fill="currentColor"
-                  className="size-6"
+                  className="size-5"
                 >
                   <path
                     fillRule="evenodd"
@@ -358,7 +358,7 @@ const SidebarAdmin = () => {
                           xmlns="http://www.w3.org/2000/svg"
                           viewBox="0 0 24 24"
                           fill="currentColor"
-                          className="size-6"
+                          className="size-5"
                         >
                           <path d="M9.75 3a6.75 6.75 0 1 1 0 13.5h-3v3a.75.75 0 0 1-1.28.53L1.5 15.28a.75.75 0 0 1 0-1.06l3.97-3.97A.75.75 0 0 1 6.75 10.5h3a6.75 6.75 0 0 0 0-13.5Z" />
                         </svg>
@@ -368,7 +368,7 @@ const SidebarAdmin = () => {
                           }`}
                         >
                           <a href="#" className="pl-3">
-                            R_Usuarios
+                            R_Padre
                           </a>
                         </span>
                       </span>
@@ -389,7 +389,7 @@ const SidebarAdmin = () => {
                           xmlns="http://www.w3.org/2000/svg"
                           viewBox="0 0 24 24"
                           fill="currentColor"
-                          className="size-6"
+                          className="size-5"
                         >
                           <path d="M12 3a9 9 0 1 1 0 18 9 9 0 0 1 0-18zm0 2a7 7 0 1 0 0 14 7 7 0 0 0 0-14zm-.75 4.5a.75.75 0 0 1 1.5 0v4.5a.75.75 0 0 1-1.5 0V9zm-.375 6a.75.75 0 0 1 .75-.75h.75a.75.75 0 0 1 0 1.5h-.75a.75.75 0 0 1-.75-.75z" />
                         </svg>
@@ -406,7 +406,7 @@ const SidebarAdmin = () => {
                     </a>
                   </li>
                 </NavLink>
-                <NavLink to="/reportesEmpleados">
+                <NavLink to="/reporpago">
                   <li onClick={() => handleTabSelect("reportesEmpleados")}>
                     <a
                       className={`flex items-center gap-x-4 px-3 py-2 rounded-md hover:bg-gray-400 hover:text-white ${
@@ -420,7 +420,7 @@ const SidebarAdmin = () => {
                           xmlns="http://www.w3.org/2000/svg"
                           viewBox="0 0 24 24"
                           fill="currentColor"
-                          className="size-6"
+                          className="size-5"
                         >
                           <path d="M16.5 3a6.75 6.75 0 1 1-6.75 6.75A6.75 6.75 0 0 1 16.5 3zm0 9a2.25 2.25 0 1 0-2.25-2.25A2.25 2.25 0 0 0 16.5 12zm-4.5 3c-2.5 0-6 1.5-6 4.5a.75.75 0 0 0 .75.75h10.5a.75.75 0 0 0 .75-.75c0-3-3.5-4.5-6-4.5z" />
                         </svg>
@@ -430,7 +430,7 @@ const SidebarAdmin = () => {
                           }`}
                         >
                           <a href="#" className="pl-3">
-                            R_Empleados
+                            R_Pago
                           </a>
                         </span>
                       </span>
@@ -454,7 +454,7 @@ const SidebarAdmin = () => {
                 viewBox="0 0 24 24"
                 strokeWidth="1.5"
                 stroke="currentColor"
-                className="w-6 h-6"
+                className="w-6 h-5"
               >
                 <path
                   strokeLinecap="round"

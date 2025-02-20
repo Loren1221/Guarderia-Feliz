@@ -137,7 +137,7 @@ const SidebarUser = () => {
                 </a>
               </li>
             </NavLink>
-            <NavLink to="/reservacion">
+            <NavLink to="/eventosU">
               <li onClick={() => handleTabSelect("Reservar")}>
                 <a
                   className={`

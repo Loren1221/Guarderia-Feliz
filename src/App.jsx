@@ -8,22 +8,22 @@ import Navbar from "./components/Navbar";
 import { UserProvider } from "./hooks/useContext";
 import PrivateRoute from "./components/PrivateRoute";
 import UsuarioP from "./pages/usuario/UsuarioP";
-import RegisterPage from "./pages/admin/RegisterPage";
 import AdminPage from "./pages/admin/AdminPage";
 import Actividades from "./pages/actividades/Actividades";
 import UserRegistration from "./pages/admin/UserRegistationPage";
-import ReportsUser from "./pages/admin/ReportsUser";
-
 import Dashboard from "./pages/admin/Dashboard";
 import RegistrarEstudiante from "./pages/admin/RegistrarEstudiante";
 import PasarLista from "./pages/admin/PasarLista";
 import EventsUser from "./pages/usuario/EventsUser";
 import RegistrarEmpleado from "./pages/admin/RegistrarEmpleado";
 import AdminEvents from "./pages/admin/AdminEvents";
-import RegistrarPago from "./pages/admin/RegistrarPago";
-import ReportesEstu from "./pages/admin/ReportesEstu";
+import ReportesEstu from "./reports/ReportesEstu.jsx";
 import CambContr from "./pages/usuario/CambContr";
 import Perfil from "./pages/usuario/Perfil";
+import Cobros from "./pages/admin/Cobros";
+import ReporteAsistencia from "./reports/ReporteAsistencia ";
+import ReportesPagos from "./reports/ReportesPagos.jsx";
+import PadreReports from "./reports/PadreReports.jsx";
 
 
 function App() {
@@ -47,12 +47,7 @@ function App() {
         />
 
 
-        <Route
-          path="/register"
-          element={
-            <PrivateRoute element={<RegisterPage />} role="administrador" />
-          }
-        />
+        
         <Route
           path="/userregistation"
           element={
@@ -92,7 +87,7 @@ function App() {
         <Route
           path="/reportes"
           element={
-            <PrivateRoute element={<ReportsUser />} role="administrador" />
+            <PrivateRoute element={<PadreReports />} role="administrador" />
           }
         />
 
@@ -118,21 +113,37 @@ function App() {
         />
 
 
+<Route
+          path="/rep_Asistencia"
+          element={
+            <PrivateRoute element={<ReporteAsistencia/>} role="administrador" />
+          }
+        />
+
+
         <Route
-          path="/reservacion"    
+          path="/eventosU"    
           element={<PrivateRoute element={<EventsUser />} role="estudiante" />}
         />
       
 
 <Route
           path="/pago"    
-          element={<PrivateRoute element={<RegistrarPago />} role="administrador" />}
+          element={<PrivateRoute element={<Cobros />} role="administrador" />}
         />
 
 <Route
           path="/reportEst"    
           element={<PrivateRoute element={<ReportesEstu />} role="administrador" />}
         />
+        
+
+        
+<Route
+          path="/reporpago"    
+          element={<PrivateRoute element={<ReportesPagos />} role="administrador" />}
+        />
+
 
 
         <Route path="*" element={<NotFound />} />
@@ -142,6 +153,5 @@ function App() {
 }
 
 export default App;
-
 
 
