@@ -68,17 +68,17 @@ function App() {
         <Route
           path="/perfil"
           element={<PrivateRoute element={<Perfil />} />}
-          role="estudiante"
+          role="padre"
         />
         <Route
           path="/cambiar-contrasena"
           element={<CambContr />}
-          role="estudiante"
+          role="padre"
         />
         <Route
           path="/calendar"
           element={
-            <PrivateRoute element={<Actividades />} role="estudiante" />
+            <PrivateRoute element={<Actividades />} role="padre" />
           }
         />
 
@@ -123,7 +123,7 @@ function App() {
 
         <Route
           path="/eventosU"    
-          element={<PrivateRoute element={<EventsUser />} role="estudiante" />}
+          element={<PrivateRoute element={<EventsUser />} role="padre" />}
         />
       
 

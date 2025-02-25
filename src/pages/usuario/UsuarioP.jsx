@@ -1,14 +1,15 @@
 import React, { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import { FaHome, FaCalendarAlt, FaSignOutAlt } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
+import { FaUser, FaEnvelope, FaPhone, FaCaretDown } from "react-icons/fa";
 import { useUser } from "../../hooks/useContext";
 import Cookies from "js-cookie";
 import { LayoutUser } from "../../components/LayoutUser";
 
-export default function UsuarioP () {
+export default function UsuarioP() {
   const { user, setUser } = useUser();
   const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
+  const [menuOpen, setMenuOpen] = useState(false);
 
   useEffect(() => {
     const storedUser = Cookies.get("user");
@@ -20,14 +21,13 @@ export default function UsuarioP () {
     }
   }, [setUser, navigate]);
 
-  const getInitial = (name) => {
-    return name ? name.charAt(0).toUpperCase() : "L,";
-  };
-
   const handleLogout = () => {
-    Cookies.remove("user");
-    setUser(null);
-    navigate("/login");
+    const confirmLogout = window.confirm("¿Estás seguro de que deseas cerrar sesión?");
+    if (confirmLogout) {
+      Cookies.remove("user");
+      setUser(null);
+      navigate("/login");
+    }
   };
 
   if (loading) {
@@ -36,40 +36,33 @@ export default function UsuarioP () {
 
   return (
     <LayoutUser>
-    <main>
-      <div className="flex-1 min-h-screen bg-gray-100">
-        <header className="flex justify-between items-center bg-white shadow p-4">
-          <h1 className="text-2xl font-semibold text-gray-900">
-            Hola, {user ? user.name : "Cargando..."}
-          </h1>
-          <div className="relative flex items-center">
-            <div className="w-12 h-12 bg-indigo-600 text-white flex items-center justify-center rounded-full text-xl font-bold border-2 border-indigo-400">
-              {user ? getInitial(user.name) : ""}
+      <header className="flex justify-end p-4 bg-white shadow-md">
+        <div className="relative">
+          <button
+            className="flex items-center bg-gray-200 px-4 py-2 rounded-lg shadow hover:bg-gray-300"
+            onClick={() => setMenuOpen(!menuOpen)}
+          >
+            <FaUser className="mr-2" /> {user?.name || "Usuario"} <FaCaretDown className="ml-2" />
+          </button>
+          {menuOpen && (
+            <div className="absolute right-0 mt-2 w-48 bg-white shadow-lg rounded-lg p-4">
+              <p className="flex items-center gap-2 text-gray-700"><FaEnvelope /> {user?.email || "Correo no disponible"}</p>
+              
+              <button
+                onClick={handleLogout}
+                className="mt-4 bg-green-700 text-white px-4 py-2 w-full rounded-lg shadow hover:bg-green-600"
+              >
+                Cerrar sesión
+              </button>
             </div>
-          </div>
-        </header>
-
-        <div className="p-8">
-          <div className="w-full max-w-4xl mx-auto bg-white rounded-lg shadow-lg p-8">
-            <h2 className="text-3xl font-semibold text-gray-900 mb-6 text-center">
-              Bienvenido a tu Dashboard
-            </h2>
-            <div className="mb-6">
-              {user ? (
-                <p className="text-xl text-gray-700 text-center">
-                  Hola,{" "}
-                  <span className="font-semibold text-indigo-600">
-                    {user.name}
-                  </span>
-                </p>
-              ) : (
-                <p className="text-xl text-gray-500 text-center">Cargando...</p>
-              )}
-            </div>
-          </div>
+          )}
         </div>
-      </div>
-    </main>
+      </header>
+      <main>
+        <div className="flex-1 min-h-screen bg-gray-100 flex flex-col items-center justify-center p-6">
+          <h2 className="text-3xl font-semibold text-gray-900">Bienvenido, {user?.name || "Usuario"}</h2>
+        </div>
+      </main>
     </LayoutUser>
   );
 }

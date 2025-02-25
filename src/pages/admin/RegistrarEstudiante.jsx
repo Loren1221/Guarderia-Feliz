@@ -1,17 +1,15 @@
 
-
 import React, { useState, useEffect } from "react";
 import { supabase } from "../../supabase/Client";
 import Layout from "../../components/Layout";
-import { jsPDF } from "jspdf";
 
 const RegistrarEstudiante = () => {
   const [estudiante, setEstudiante] = useState({
     nombre: "",
     apellido: "",
-    sexo_id: "", // Cambiado a solo el ID
+    sexo_id: "",
     fecha_nacimiento: "",
-    id_padre: "", // Cambiado a solo el ID
+    id_padre: "",
     direccion: "",
     telefono_contacto: "",
     alergias: "",
@@ -75,9 +73,9 @@ const RegistrarEstudiante = () => {
       const { error } = await supabase.from("Estudiantes").insert({
         nombre: estudiante.nombre,
         apellido: estudiante.apellido,
-        sexo_id: estudiante.sexo_id, // Enviar solo el ID
+        sexo_id: estudiante.sexo_id,
         fecha_nacimiento: estudiante.fecha_nacimiento,
-        id_padre: estudiante.id_padre, // Enviar solo el ID
+        id_padre: estudiante.id_padre,
         direccion: estudiante.direccion,
         telefono_contacto: estudiante.telefono_contacto,
         alergias: estudiante.alergias,
@@ -88,36 +86,11 @@ const RegistrarEstudiante = () => {
       if (error) throw error;
 
       alert("¡Estudiante registrado con éxito!");
-      handleGenerateReceipt(); // Generar recibo después de registrar al estudiante
       handleCancel();
     } catch (error) {
       console.error("Error al registrar el estudiante:", error.message);
       alert("Hubo un error al registrar el estudiante.");
     }
-  };
-
-  const handleGenerateReceipt = () => {
-    const doc = new jsPDF();
-    doc.setFontSize(20);
-    doc.text("Recibo de Inscripción", 105, 10, null, null, "center");
-
-    // Buscar el nombre del padre y el sexo seleccionado
-    const padreSeleccionado = padres.find((padre) => padre.id === parseInt(estudiante.id_padre));
-    const sexoSeleccionado = sexos.find((sexo) => sexo.id === parseInt(estudiante.sexo_id));
-
-    doc.setFontSize(12);
-    doc.text(`Nombre del Estudiante: ${estudiante.nombre} ${estudiante.apellido}`, 20, 30);
-    doc.text(`Fecha de Nacimiento: ${estudiante.fecha_nacimiento}`, 20, 40);
-    doc.text(`Sexo: ${sexoSeleccionado ? sexoSeleccionado.name : ""}`, 20, 50);
-    doc.text(`Nombre del Padre: ${padreSeleccionado ? `${padreSeleccionado.name} ${padreSeleccionado.last_name}` : ""}`, 20, 60);
-    doc.text(`Dirección: ${estudiante.direccion}`, 20, 70);
-    doc.text(`Teléfono de Contacto: ${estudiante.telefono_contacto}`, 20, 80);
-    doc.text(`Alergias: ${estudiante.alergias}`, 20, 90);
-    doc.text(`Observaciones: ${estudiante.observaciones}`, 20, 100);
-    doc.text(`Monto de Inscripción: $${estudiante.monto}`, 20, 110);
-
-    // Guardar el PDF
-    doc.save(`recibo_inscripcion_${estudiante.nombre}_${estudiante.apellido}.pdf`);
   };
 
   const handleCancel = () => {
@@ -323,3 +296,4 @@ const RegistrarEstudiante = () => {
 };
 
 export default RegistrarEstudiante;
+

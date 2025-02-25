@@ -45,7 +45,7 @@ export const useLogin = () => {
             case "administrador":
               navigate("/admin");
               break;
-            case "estudiante":
+            case "padre":
               navigate("/usuario");
               break;
             case "docente":
