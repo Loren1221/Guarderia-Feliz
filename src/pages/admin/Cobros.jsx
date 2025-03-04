@@ -295,7 +295,7 @@ export default function Cobros() {
     doc.setFontSize(20);
     doc.setTextColor(0, 0, 128); // Azul marino
     doc.setFont("helvetica", "bold");
-    doc.text("Guardería Los Pequeños Traviesos", 105, 20, null, null, "center");
+    doc.text("Guardería Feliz", 105, 20, null, null, "center");
 
     // Línea divisoria
     doc.setDrawColor(0, 0, 128); // Azul marino
@@ -317,10 +317,10 @@ export default function Cobros() {
 
     // Información de la guardería
     doc.setFontSize(12);
-    doc.text("Guardería Los Pequeños Traviesos", 20, 95);
+    doc.text("Guardería Feliz", 20, 95);
     doc.text("Dirección: Calle Falsa 123, Ciudad, País", 20, 105);
     doc.text("Teléfono: +123 456 7890", 20, 115);
-    doc.text("Email: info@guarderialospequeñostraviesos.com", 20, 125);
+    doc.text("Email: info@guarderiafeliz.com", 20, 125);
 
     // Espacio para el sello
     doc.setFontSize(10);

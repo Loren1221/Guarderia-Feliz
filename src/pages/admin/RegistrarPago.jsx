@@ -1,28 +1,30 @@
 
-
-
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import { supabase } from "../../supabase/Client";
 import Layout from "../../components/Layout";
 import { FaRegCreditCard, FaCheckCircle, FaSearch } from "react-icons/fa";
 import dayjs from "dayjs";
 
 const RegistrarPago = () => {
+  // Estado para el formulario de pago
   const [pago, setPago] = useState({
     monto: "",
     fecha_pago: dayjs().format("YYYY-MM-DD"),
     id_estudiante: { id: "", name: "", padre: "" },
   });
 
+  // Estados para la lista de estudiantes, búsqueda y pagos realizados
   const [estudiantes, setEstudiantes] = useState([]);
   const [search, setSearch] = useState("");
   const [pagosRealizados, setPagosRealizados] = useState([]);
   const [showFormulario, setShowFormulario] = useState(false);
   const [pagosStatus, setPagosStatus] = useState({});
 
+  // Cargar datos al montar el componente
   useEffect(() => {
     const fetchData = async () => {
       try {
+        // Obtener estudiantes
         const { data: estudiantesData, error: estudiantesError } = await supabase
           .from("Estudiantes")
           .select("id, nombre, apellido, id_padre, monto");
@@ -30,18 +32,22 @@ const RegistrarPago = () => {
         if (estudiantesError) throw estudiantesError;
         setEstudiantes(estudiantesData);
 
+        // Obtener pagos del mes actual
         const currentMonth = dayjs().month() + 1;
         const currentYear = dayjs().year();
+        const nextMonth = currentMonth === 12 ? 1 : currentMonth + 1;
+        const nextYear = currentMonth === 12 ? currentYear + 1 : currentYear;
 
         const { data: pagosData, error: pagosError } = await supabase
           .from("Pagos")
           .select("id_estudiante, fecha_pago")
           .filter("fecha_pago", "gte", `${currentYear}-${currentMonth}-01`)
-          .filter("fecha_pago", "lt", `${currentYear}-${currentMonth + 1}-01`);
+          .filter("fecha_pago", "lt", `${nextYear}-${nextMonth}-01`);
 
         if (pagosError) throw pagosError;
         setPagosRealizados(pagosData);
 
+        // Actualizar estado de pagos
         const pagosStatusUpdate = {};
         pagosData.forEach((pago) => {
           pagosStatusUpdate[pago.id_estudiante] = true;
@@ -49,16 +55,30 @@ const RegistrarPago = () => {
         setPagosStatus(pagosStatusUpdate);
       } catch (error) {
         console.error("Error al cargar los datos:", error.message);
+        alert(`Error al cargar los datos: ${error.message}`);
       }
     };
 
     fetchData();
   }, []);
 
-  const estudiantesNoPagados = estudiantes.filter((est) => {
-    return !pagosRealizados.some((pago) => pago.id_estudiante === est.id);
-  });
+  // Filtrar estudiantes no pagados
+  const estudiantesNoPagados = useMemo(() => {
+    return estudiantes.filter((est) => {
+      return !pagosRealizados.some((pago) => pago.id_estudiante === est.id);
+    });
+  }, [estudiantes, pagosRealizados]);
 
+  // Filtrar estudiantes según la búsqueda
+  const filteredEstudiantes = useMemo(() => {
+    return estudiantesNoPagados.filter(
+      (est) =>
+        est.nombre.toLowerCase().includes(search.toLowerCase()) ||
+        est.apellido.toLowerCase().includes(search.toLowerCase())
+    );
+  }, [estudiantesNoPagados, search]);
+
+  // Manejar cambios en los inputs del formulario
   const handleInputChange = (e) => {
     const { name, value } = e.target;
 
@@ -84,6 +104,7 @@ const RegistrarPago = () => {
     }
   };
 
+  // Manejar el envío del formulario
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -96,7 +117,7 @@ const RegistrarPago = () => {
       const { error } = await supabase.from("Pagos").insert({
         monto: pago.monto,
         fecha_pago: pago.fecha_pago,
-        id_estudiante: pago.id_estudiante.name,
+        id_estudiante: pago.id_estudiante.id, // Usar el ID en lugar del nombre
         id_padre: pago.id_estudiante.padre,
       });
 
@@ -110,10 +131,11 @@ const RegistrarPago = () => {
       handleCancel();
     } catch (error) {
       console.error("Error al registrar el pago:", error.message);
-      alert("Hubo un error al registrar el pago.");
+      alert(`Hubo un error al registrar el pago: ${error.message}`);
     }
   };
 
+  // Reiniciar el formulario
   const handleCancel = () => {
     setPago({
       monto: "",
@@ -123,15 +145,10 @@ const RegistrarPago = () => {
     setShowFormulario(false);
   };
 
+  // Manejar cambios en la búsqueda
   const handleSearchChange = (e) => {
     setSearch(e.target.value);
   };
-
-  const filteredEstudiantes = estudiantesNoPagados.filter(
-    (est) =>
-      est.nombre.toLowerCase().includes(search.toLowerCase()) ||
-      est.apellido.toLowerCase().includes(search.toLowerCase())
-  );
 
   return (
     <Layout>
@@ -149,6 +166,7 @@ const RegistrarPago = () => {
             value={search}
             onChange={handleSearchChange}
             className="w-full py-2 px-4 focus:outline-none focus:ring-2 focus:ring-blue-500 rounded-lg"
+            aria-label="Buscar estudiante"
           />
         </div>
 
@@ -263,5 +281,3 @@ const RegistrarPago = () => {
     </Layout>
   );
 };
-
-export default RegistrarPago;
