@@ -212,33 +212,7 @@ const SidebarAdmin = () => {
               </li>
             </NavLink>
 
-            <NavLink to="/lista">
-              <li onClick={() => handleTabSelect("paseDeLista")}>
-                <a
-                  className={`flex items-center gap-x-4 px-3 py-2 rounded-md hover:bg-gray-400 hover:text-white ${
-                    selectedTab.paseDeLista ? "text-green-500 bg-gray-200" : ""
-                  }`}
-                >
-                  <span className="min-w-max inline-flex">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      viewBox="0 0 24 24"
-                      fill="currentColor"
-                      className="size-5"
-                    >
-                      <path d="M21 3H3a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h18a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2zM9 14H6v-2h3v2zm5 0h-4v-2h4v2zm6 0h-3v-2h3v2z" />
-                    </svg>
-                    <span
-                      className={`inline-flex ease-linear transition-colors duration-300 ${
-                        sidebarResized ? "lg:invisible" : ""
-                      }`}
-                    >
-                      <a href="" className="pl-3">Pase de Lista</a>
-                    </span>
-                  </span>
-                </a>
-              </li>
-            </NavLink>
+           
 
             <NavLink to="/pago">
               <li onClick={() => handleTabSelect("factura")}>

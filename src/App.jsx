@@ -13,18 +13,15 @@ import Actividades from "./pages/actividades/Actividades";
 import UserRegistration from "./pages/admin/UserRegistationPage";
 import Dashboard from "./pages/admin/Dashboard";
 import RegistrarEstudiante from "./pages/admin/RegistrarEstudiante";
-import PasarLista from "./pages/admin/PasarLista";
 import EventsUser from "./pages/usuario/EventsUser";
 import RegistrarEmpleado from "./pages/admin/RegistrarEmpleado";
 import AdminEvents from "./pages/admin/AdminEvents";
 import ReportesEstu from "./reports/ReportesEstu.jsx";
 import CambContr from "./pages/usuario/CambContr";
 import Perfil from "./pages/usuario/Perfil";
-import Cobros from "./pages/admin/Cobros";
-import ReporteAsistencia from "./reports/ReporteAsistencia ";
 import ReportesPagos from "./reports/ReportesPagos.jsx";
 import PadreReports from "./reports/PadreReports.jsx";
-
+import PagarMensualidad from "./pages/admin/PagarMensualidad.jsx";
 
 function App() {
   return (
@@ -97,13 +94,7 @@ function App() {
             <PrivateRoute element={<RegistrarEstudiante />} role="administrador" />
           }
         />
-        
-<Route
-          path="/lista"
-          element={
-            <PrivateRoute element={<PasarLista />} role="administrador" />
-          }
-        />
+   
 
 <Route
           path="/event"
@@ -113,12 +104,7 @@ function App() {
         />
 
 
-<Route
-          path="/rep_Asistencia"
-          element={
-            <PrivateRoute element={<ReporteAsistencia/>} role="administrador" />
-          }
-        />
+
 
 
         <Route
@@ -129,7 +115,7 @@ function App() {
 
 <Route
           path="/pago"    
-          element={<PrivateRoute element={<Cobros />} role="administrador" />}
+          element={<PrivateRoute element={<PagarMensualidad />} role="administrador" />}
         />
 
 <Route
@@ -143,6 +129,9 @@ function App() {
           path="/reporpago"    
           element={<PrivateRoute element={<ReportesPagos />} role="administrador" />}
         />
+
+
+
 
 
 

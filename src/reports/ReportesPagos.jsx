@@ -1,219 +1,326 @@
-
-
-// import React, { useState, useEffect } from "react";
-// import { supabase } from "../supabase/Client";
-// import Layout from "../components/Layout";
-// import { FaSearch, FaCalendar } from "react-icons/fa";
-// import dayjs from "dayjs";
-
-// const ReportesCobros = () => {
-//   const [cobros, setCobros] = useState([]);
-//   const [search, setSearch] = useState("");
-//   const [mes, setMes] = useState("");
-//   const [loading, setLoading] = useState(false);
-
-//   useEffect(() => {
-//     const fetchCobros = async () => {
-//       setLoading(true);
-//       try {
-//         let query = supabase
-//           .from("Cobros")
-//           .select("id, monto, fecha_pago, id_estudiante, id_padre");
-
-//         // Aplicar filtro por mes si existe
-//         if (mes) {
-//           const inicioMes = dayjs(mes).startOf("month").format("YYYY-MM-DD");
-//           const finMes = dayjs(mes).endOf("month").format("YYYY-MM-DD");
-//           query = query.gte("fecha_pago", inicioMes).lte("fecha_pago", finMes);
-//         }
-
-//         const { data, error } = await query;
-//         if (error) throw error;
-//         setCobros(data);
-//       } catch (error) {
-//         console.error("Error al obtener los cobros:", error.message);
-//       } finally {
-//         setLoading(false);
-//       }
-//     };
-
-//     fetchCobros();
-//   }, [mes]);
-
-//   // Filtrar cobros por ID de estudiante (simulación, necesita nombre real)
-//   const filteredCobros = cobros.filter((cobro) =>
-//     cobro.id_estudiante.toString().includes(search)
-//   );
-
-//   return (
-//     <Layout>
-//       <div className="max-w-6xl mx-auto mt-8 p-6 bg-white shadow-xl rounded-lg border border-gray-200">
-//         <h2 className="text-3xl font-semibold text-center text-gray-800 mb-6">
-//           Reportes de Cobros
-//         </h2>
-
-//         {/* Filtros de búsqueda */}
-//         <div className="mb-6 flex flex-col md:flex-row gap-4">
-//           {/* Barra de búsqueda por estudiante */}
-//           <div className="flex items-center border-b-2 border-gray-300 flex-1">
-//             <FaSearch className="text-gray-600 mr-3 text-lg" />
-//             <input
-//               type="text"
-//               placeholder="Buscar por ID de estudiante..."
-//               value={search}
-//               onChange={(e) => setSearch(e.target.value)}
-//               className="w-full py-2 px-4 focus:outline-none focus:ring-2 focus:ring-blue-500 rounded-lg"
-//             />
-//           </div>
-
-//           {/* Filtro por mes */}
-//           <div className="flex items-center border-b-2 border-gray-300">
-//             <FaCalendar className="text-gray-600 mr-3 text-lg" />
-//             <input
-//               type="month"
-//               value={mes}
-//               onChange={(e) => setMes(e.target.value)}
-//               className="py-2 px-4 focus:outline-none focus:ring-2 focus:ring-blue-500 rounded-lg"
-//             />
-//           </div>
-//         </div>
-
-//         {/* Tabla de cobros */}
-//         {loading ? (
-//           <p className="text-center text-gray-600">Cargando cobros...</p>
-//         ) : (
-//           <div className="overflow-x-auto">
-//             <table className="min-w-full bg-white">
-//               <thead>
-//                 <tr>
-//                   <th className="py-3 px-6 border-b-2 border-gray-200 bg-gray-100 text-left text-sm font-semibold text-gray-600">
-//                     Fecha de Cobro
-//                   </th>
-//                   <th className="py-3 px-6 border-b-2 border-gray-200 bg-gray-100 text-left text-sm font-semibold text-gray-600">
-//                     ID Estudiante
-//                   </th>
-//                   <th className="py-3 px-6 border-b-2 border-gray-200 bg-gray-100 text-left text-sm font-semibold text-gray-600">
-//                     ID Padre
-//                   </th>
-//                   <th className="py-3 px-6 border-b-2 border-gray-200 bg-gray-100 text-left text-sm font-semibold text-gray-600">
-//                     Monto
-//                   </th>
-//                 </tr>
-//               </thead>
-//               <tbody>
-//                 {filteredCobros.length === 0 ? (
-//                   <tr>
-//                     <td colSpan="4" className="py-4 px-6 text-center text-gray-600">
-//                       No se encontraron cobros.
-//                     </td>
-//                   </tr>
-//                 ) : (
-//                   filteredCobros.map((cobro) => (
-//                     <tr key={cobro.id} className="hover:bg-gray-50">
-//                       <td className="py-4 px-6 border-b border-gray-200 text-sm text-gray-700">
-//                         {dayjs(cobro.fecha_pago).format("DD/MM/YYYY")}
-//                       </td>
-//                       <td className="py-4 px-6 border-b border-gray-200 text-sm text-gray-700">
-//                         {cobro.id_estudiante}
-//                       </td>
-//                       <td className="py-4 px-6 border-b border-gray-200 text-sm text-gray-700">
-//                         {cobro.id_padre}
-//                       </td>
-//                       <td className="py-4 px-6 border-b border-gray-200 text-sm text-gray-700">
-//                         ${cobro.monto}
-//                       </td>
-//                     </tr>
-//                   ))
-//                 )}
-//               </tbody>
-//             </table>
-//           </div>
-//         )}
-//       </div>
-//     </Layout>
-//   );
-// };
-
-// export default ReportesCobros;
 import React, { useState, useEffect } from "react";
- import { supabase } from "../supabase/Client";
- import Layout from "../components/Layout";
-import dayjs from "dayjs";
+import { supabase } from "../supabase/Client";
+import { Page, Text, View, Document, StyleSheet, PDFDownloadLink } from "@react-pdf/renderer";
+import dayjs from "dayjs"; // Importar dayjs
+import Layout from "../components/Layout";
+// Estilos para el reporte
+const styles = StyleSheet.create({
+  page: {
+    flexDirection: "column",
+    backgroundColor: "#ffffff",
+    padding: 20,
+  },
+  header: {
+    fontSize: 24,
+    textAlign: "center",
+    marginBottom: 20,
+    color: "#333333",
+  },
+  section: {
+    marginBottom: 10,
+  },
+  label: {
+    fontSize: 14,
+    fontWeight: "bold",
+    marginBottom: 5,
+    color: "#555555",
+  },
+  value: {
+    fontSize: 12,
+    marginBottom: 10,
+    color: "#777777",
+  },
+  table: {
+    display: "table",
+    width: "100%",
+    borderStyle: "solid",
+    borderWidth: 1,
+    borderColor: "#cccccc",
+    marginBottom: 10,
+  },
+  tableRow: {
+    flexDirection: "row",
+  },
+  tableColHeader: {
+    width: "25%",
+    borderStyle: "solid",
+    borderWidth: 1,
+    borderColor: "#cccccc",
+    backgroundColor: "#f0f0f0",
+    padding: 5,
+  },
+  tableCol: {
+    width: "25%",
+    borderStyle: "solid",
+    borderWidth: 1,
+    borderColor: "#cccccc",
+    padding: 5,
+  },
+  footer: {
+    fontSize: 12,
+    textAlign: "center",
+    marginTop: 20,
+    color: "#999999",
+  },
+});
+
+// Componente de factura individual en PDF
+const FacturaPDF = ({ factura }) => (
+  <Document>
+    <Page size="A4" style={styles.page}>
+      {/* Encabezado */}
+      <Text style={styles.header}>Factura de Pago</Text>
+
+      {/* Información del padre */}
+      <View style={styles.section}>
+        <Text style={styles.label}>Padre:</Text>
+        <Text style={styles.value}>
+          {factura.padre.name} {factura.padre.last_name}
+        </Text>
+      </View>
+
+      {/* Fecha de pago y meses pagados */}
+      <View style={styles.section}>
+        <Text style={styles.label}>Fecha de Pago:</Text>
+        <Text style={styles.value}>
+          {dayjs(factura.fecha).format("DD/MM/YYYY")}
+        </Text>
+      </View>
+      <View style={styles.section}>
+        <Text style={styles.label}>Meses Pagados:</Text>
+        <Text style={styles.value}>{factura.meses_pagados}</Text>
+      </View>
+
+      {/* Estudiantes asociados */}
+      <View style={styles.section}>
+        <Text style={styles.label}>Estudiantes:</Text>
+        <View style={styles.table}>
+          <View style={styles.tableRow}>
+            <View style={styles.tableColHeader}>
+              <Text>Nombre</Text>
+            </View>
+            <View style={styles.tableColHeader}>
+              <Text>Apellido</Text>
+            </View>
+            <View style={styles.tableColHeader}>
+              <Text>Monto por Mes</Text>
+            </View>
+            <View style={styles.tableColHeader}>
+              <Text>Total</Text>
+            </View>
+          </View>
+          {factura.estudiantes.map((est, i) => (
+            <View style={styles.tableRow} key={i}>
+              <View style={styles.tableCol}>
+                <Text>{est.nombre}</Text>
+              </View>
+              <View style={styles.tableCol}>
+                <Text>{est.apellido}</Text>
+              </View>
+              <View style={styles.tableCol}>
+                <Text>${est.monto}</Text>
+              </View>
+              <View style={styles.tableCol}>
+                <Text>${est.monto * factura.meses_pagados}</Text>
+              </View>
+            </View>
+          ))}
+        </View>
+      </View>
+
+      {/* Total pagado */}
+      <View style={styles.section}>
+        <Text style={styles.label}>Total Pagado:</Text>
+        <Text style={styles.value}>${factura.monto_total}</Text>
+      </View>
+
+      {/* Pie de página */}
+      <Text style={styles.footer}>Gracias por su pago</Text>
+    </Page>
+  </Document>
+);
+
+// Componente de reporte en PDF (todas las facturas)
+const ReportePDF = ({ pagos }) => (
+  <Document>
+    {pagos.map((factura, index) => (
+      <Page key={index} size="A4" style={styles.page}>
+        {/* Encabezado */}
+        <Text style={styles.header}>Factura de Pago #{index + 1}</Text>
+
+        {/* Información del padre */}
+        <View style={styles.section}>
+          <Text style={styles.label}>Padre:</Text>
+          <Text style={styles.value}>
+            {factura.padre.name} {factura.padre.last_name}
+          </Text>
+        </View>
+
+        {/* Fecha de pago y meses pagados */}
+        <View style={styles.section}>
+          <Text style={styles.label}>Fecha de Pago:</Text>
+          <Text style={styles.value}>
+            {dayjs(factura.fecha).format("DD/MM/YYYY")}
+          </Text>
+        </View>
+        <View style={styles.section}>
+          <Text style={styles.label}>Meses Pagados:</Text>
+          <Text style={styles.value}>{factura.meses_pagados}</Text>
+        </View>
+
+        {/* Estudiantes asociados */}
+        <View style={styles.section}>
+          <Text style={styles.label}>Estudiantes:</Text>
+          <View style={styles.table}>
+            <View style={styles.tableRow}>
+              <View style={styles.tableColHeader}>
+                <Text>Nombre</Text>
+              </View>
+              <View style={styles.tableColHeader}>
+                <Text>Apellido</Text>
+              </View>
+              <View style={styles.tableColHeader}>
+                <Text>Monto por Mes</Text>
+              </View>
+              <View style={styles.tableColHeader}>
+                <Text>Total</Text>
+              </View>
+            </View>
+            {factura.estudiantes.map((est, i) => (
+              <View style={styles.tableRow} key={i}>
+                <View style={styles.tableCol}>
+                  <Text>{est.nombre}</Text>
+                </View>
+                <View style={styles.tableCol}>
+                  <Text>{est.apellido}</Text>
+                </View>
+                <View style={styles.tableCol}>
+                  <Text>${est.monto}</Text>
+                </View>
+                <View style={styles.tableCol}>
+                  <Text>${est.monto * factura.meses_pagados}</Text>
+                </View>
+              </View>
+            ))}
+          </View>
+        </View>
+
+        {/* Total pagado */}
+        <View style={styles.section}>
+          <Text style={styles.label}>Total Pagado:</Text>
+          <Text style={styles.value}>${factura.monto_total}</Text>
+        </View>
+
+        {/* Pie de página */}
+        <Text style={styles.footer}>Gracias por su pago</Text>
+      </Page>
+    ))}
+  </Document>
+);
 
 const ReportePagos = () => {
   const [pagos, setPagos] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [mes, setMes] = useState(dayjs().format("YYYY-MM"));
-  const [error, setError] = useState(null);
-  
+
+  // Obtener todos los pagos registrados
   useEffect(() => {
     const fetchPagos = async () => {
-      setLoading(true);
-      setError(null);
-      try {
-        const { data, error } = await supabase
-          .from("Cobros")
-          .select("id, estudiante_id, monto, fecha_pago") // Verifica si "estudiante_id" es el nombre correcto
-          .gte("fecha_pago", `${mes}-01`)
-          .lt("fecha_pago", dayjs(mes).add(1, "month").format("YYYY-MM-DD"));
+      const { data, error } = await supabase
+        .from("Pagos")
+        .select("*")
+        .order("fecha", { ascending: false });
 
-        if (error) throw error;
-        setPagos(data);
-      } catch (error) {
-        console.error("Error al obtener los pagos:", error.message);
-        setError("Hubo un error al obtener los pagos. Por favor, intenta nuevamente.");
-      } finally {
-        setLoading(false);
+      if (error) {
+        console.error("Error al obtener los pagos:", error);
+      } else {
+        // Obtener los detalles de los estudiantes y padres para cada pago
+        const pagosConDetalles = await Promise.all(
+          data.map(async (pago) => {
+            const { data: padre } = await supabase
+              .from("Users")
+              .select("name, last_name")
+              .eq("id", pago.id_padre)
+              .single();
+
+            const { data: estudiantes } = await supabase
+              .from("Estudiantes")
+              .select("nombre, apellido, monto")
+              .eq("id_padre", pago.id_padre);
+
+            return {
+              ...pago,
+              padre,
+              estudiantes,
+            };
+          })
+        );
+
+        setPagos(pagosConDetalles);
       }
     };
 
     fetchPagos();
-  }, [mes]);
+  }, []);
 
   return (
     <Layout>
-      <div className="max-w-4xl mx-auto mt-8 p-6 bg-white shadow-xl rounded-lg border border-gray-200">
-        <h2 className="text-3xl font-semibold text-center text-gray-800 mb-6">
-          Reporte de Pagos Mensuales
-        </h2>
-        <div className="mb-4">
-          <label className="block text-gray-700">Seleccionar mes:</label>
-          <input 
-            type="month" 
-            value={mes} 
-            onChange={(e) => setMes(e.target.value)} 
-            className="mt-2 p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-          />
+
+
+    <div className="max-w-4xl mx-auto mt-8 p-6 bg-white shadow-lg rounded-lg">
+      <h2 className="text-2xl font-semibold text-center mb-6">Reporte de Pagos</h2>
+
+      {/* Lista de facturas */}
+      {pagos.map((factura, index) => (
+        <div key={index} className="mb-6 p-4 border border-gray-300 rounded-lg">
+          <h3 className="text-lg font-semibold mb-2">Factura #{index + 1}</h3>
+          <p><strong>Padre:</strong> {factura.padre.name} {factura.padre.last_name}</p>
+          <p><strong>Fecha de Pago:</strong> {dayjs(factura.fecha).format("DD/MM/YYYY")}</p>
+          <p><strong>Meses Pagados:</strong> {factura.meses_pagados}</p>
+          <p><strong>Monto Total:</strong> ${factura.monto_total}</p>
+
+          {/* Botón para descargar la factura individual */}
+          <div className="mt-4">
+            <PDFDownloadLink
+              document={<FacturaPDF factura={factura} />}
+              fileName={`factura_${factura.padre.name}_${dayjs(factura.fecha).format("YYYYMMDD")}.pdf`}
+            >
+              {({ loading }) =>
+                loading ? (
+                  <button className="w-full bg-gray-500 text-white py-2 rounded-lg">
+                    Generando factura...
+                  </button>
+                ) : (
+                  <button className="w-full bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-600">
+                    Descargar Factura #{index + 1}
+                  </button>
+                )
+              }
+            </PDFDownloadLink>
+          </div>
         </div>
-        {loading ? (
-          <p className="text-center text-gray-600">Cargando...</p>
-        ) : error ? (
-          <p className="text-center text-red-600">{error}</p>
-        ) : pagos.length === 0 ? (
-          <p className="text-center text-gray-600">No hay pagos registrados en este mes.</p>
-        ) : (
-          <table className="w-full border-collapse border border-gray-300">
-            <thead>
-              <tr className="bg-gray-200">
-                <th className="border border-gray-300 p-3">ID</th>
-                <th className="border border-gray-300 p-3">Estudiante</th>
-                <th className="border border-gray-300 p-3">Monto</th>
-                <th className="border border-gray-300 p-3">Fecha de Pago</th>
-              </tr>
-            </thead>
-            <tbody>
-              {pagos.map((pago) => (
-                <tr key={pago.id} className="text-center">
-                  <td className="border border-gray-300 p-3">{pago.id}</td>
-                  <td className="border border-gray-300 p-3">{pago.estudiante_id || "N/A"}</td>
-                  <td className="border border-gray-300 p-3">${pago.monto}</td>
-                  <td className="border border-gray-300 p-3">{pago.fecha_pago}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        )}
-      </div>
+      ))}
+
+      {/* Botón para descargar todas las facturas en un solo PDF */}
+      {pagos.length > 0 && (
+        <div className="mt-6">
+          <PDFDownloadLink
+            document={<ReportePDF pagos={pagos} />}
+            fileName={`reporte_pagos_${dayjs().format("YYYYMMDD")}.pdf`}
+          >
+            {({ loading }) =>
+              loading ? (
+                <button className="w-full bg-gray-500 text-white py-2 rounded-lg">
+                  Generando reporte completo...
+                </button>
+              ) : (
+                <button className="w-full bg-green-500 text-white py-2 rounded-lg hover:bg-green-600">
+                  Descargar Todas las Facturas
+                </button>
+              )
+            }
+          </PDFDownloadLink>
+        </div>
+      )}
+    </div>
     </Layout>
   );
 };
