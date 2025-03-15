@@ -38,9 +38,9 @@ const SidebarAdmin = () => {
     if (confirmLogout) {
       Cookies.remove("token");
       navigate("/login");
-      alert("😢 Has cerrado sesión.");
+      alert(" Has cerrado sesión.");
     } else {
-      alert("😊 Has cancelado la acción de cerrar sesión.");
+      alert(" Has cancelado la acción de cerrar sesión.");
     }
   };
 

@@ -1,5 +1,4 @@
 
-
 import { useUser } from "../hooks/useContext";
 export default function Navbar() {
   const { user } = useUser();
